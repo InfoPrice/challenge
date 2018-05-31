@@ -5,6 +5,15 @@ Este teste é focado em design de código e conhecimentos com Javascript e Angul
 O objetivo é avaliar sua experiência em escrever código de fácil manutenção, orientado a 
 padrões e reutilizavel. 
 
+__Problema 1__
+
+Dada a api https://api-pacientes.herokuapp.com/pacientes, crie uma tela simples onde lista-se 
+os pacientes ordenados de forma decrescente por peso.
+
+Coloque o código em um local separado do problema 2.
+
+__Problema 2__
+
 __Apresentação do projeto__
 
 O arquivo index.html contém o esqueleto do projeto, uma aplicação para pesquisa de usuários 
