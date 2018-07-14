@@ -31,3 +31,10 @@ podemos citar:
 - Banco de dados deve ser SQL, preferencialmente HSQL DB
 - Deve ser utilizado Maven
 - Deve conter ao menos um teste (unitário, integrado ou mockado)
+
+## Conclusão
+Para nos enviar seu código, você pode:
+
+    Fazer um fork desse repositório e nos mandar uma pull-request.
+    Dar acesso ao seu repositório no Github, para @InfoPrice
+    Enviar um zip do projeto para nosso e-mail challenge@infoprice.co
