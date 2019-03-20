@@ -7,18 +7,26 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity"
         android:orientation="vertical">
+  <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="130dp">
  <androidx.viewpager.widget.ViewPager
          android:id="@+id/vp_banner"
+         android:foregroundGravity="center"
          android:layout_width="match_parent"
-         android:layout_height="200dp">
+         android:layout_height="130dp">
  </androidx.viewpager.widget.ViewPager>
-    <LinearLayout
-            android:id="@+id/dots_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-    </LinearLayout>
+      <LinearLayout
+              android:layout_marginTop="110dp"
+              android:layout_marginLeft="160dp"
+              android:id="@+id/dots_container"
+              android:layout_width="match_parent"
+              android:layout_height="10dp"
+              android:orientation="horizontal"
+              android:layout_gravity="center_horizontal">
+      </LinearLayout>
+  </RelativeLayout>
+
 
     <TextView
             android:textStyle="bold"

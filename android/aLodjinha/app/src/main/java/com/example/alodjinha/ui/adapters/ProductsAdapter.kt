@@ -1,5 +1,6 @@
 package com.example.alodjinha.ui.adapters
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alodjinha.R
 import com.example.alodjinha.data.classes.Product
+import com.example.alodjinha.ui.DescriptionActivity
 import com.example.alodjinha.ui.DownloadImageWithURLTask
+import com.example.alodjinha.ui.MainActivity
 import kotlinx.android.synthetic.main.item_product.view.*
 
 
@@ -36,21 +39,11 @@ class ProductsAdapter(val data: MutableList<Product> = mutableListOf()): Recycle
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         holder.bindView(data[position])
-     //   holder.view.setOnClickListener() {
-          //  val bundle = Bundle()
-            //bundle.putString("imdbid_recived", data[position].getImdbid())
-            //val movieDetails =  MovieDetails()
-           // movieDetails.arguments = bundle
-           // val activity = it.context as AppCompatActivity
-          //  val transaction : FragmentTransaction
-           // transaction = activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_content, movieDetails)
-           // transaction.addToBackStack(null).commit()
-
-
-        //}
-
-
-
+     holder.view.setOnClickListener() {
+            val intent = Intent(it.context as AppCompatActivity, DescriptionActivity::class.java)
+            intent.putExtra("Name", data[position].getName())
+            it.context.startActivity(intent)
+        }
     }
 
     fun add(item: List<Product>){
