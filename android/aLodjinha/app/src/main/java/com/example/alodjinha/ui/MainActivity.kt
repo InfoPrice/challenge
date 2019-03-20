@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     val productsAdapter: ProductsAdapter by lazy {
         ProductsAdapter()
     }
+    var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +33,17 @@ class MainActivity : AppCompatActivity() {
         lodjinhaViewModel.loadProducts()
         lodjinhaViewModel.getProducts().observe(this, Observer {data ->
             data?.let {
-                if (it.isEmpty())
-                    Toast.makeText(this,"Empty List!!", Toast.LENGTH_LONG).show()
-                else
-
-                    recycler_view.adapter = productsAdapter
-                    recycler_view.addOnScrollListener(prOnScrollListener)
+                recycler_view.adapter = productsAdapter
+                if (it.size <= 20)
                     productsAdapter.add(it)
+                else{
+                    recycler_view.addOnScrollListener(prOnScrollListener)
+                    while (count < 20){
+                        productsAdapter.add(it[count])
+                        count++
+                    }
+                }
+
             }
         })
     }
@@ -54,7 +59,8 @@ class MainActivity : AppCompatActivity() {
 
 
             if (isLastItemDisplaying(recyclerView)){
-                Log.d("LOAD MORE","LOAAAAD MOOORE")
+                Log.d("ItemDisplaying", "LOAD MORE ITEMS")
+                //TODO: load remaining products
             }
 
         }
@@ -64,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     private fun isLastItemDisplaying(recyclerView: RecyclerView): Boolean{
         if (recyclerView.adapter?.itemCount != 0){
             var lastVisiblePosition: Int
-            lastVisiblePosition = 5
+            lastVisiblePosition = 20
 
             if (lastVisiblePosition != RecyclerView.NO_POSITION && lastVisiblePosition == recyclerView.adapter!!.itemCount)
             return true
