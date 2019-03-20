@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_product.view.*
 class ProductsViewHolder(val view: View): RecyclerView.ViewHolder(view){
     fun bindView(item: Product){
         with(view){
-            var downloadImage = DownloadImageWithURLTask(iv_product_image)
+            val downloadImage = DownloadImageWithURLTask(iv_product_image)
             downloadImage.execute(item.getUrlImage())
             tv_name.text = item.getId().toString()
             tv_description.text = item.getDescription()

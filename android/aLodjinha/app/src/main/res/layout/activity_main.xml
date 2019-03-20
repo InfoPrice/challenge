@@ -7,11 +7,44 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity"
         android:orientation="vertical">
+ <androidx.viewpager.widget.ViewPager
+         android:id="@+id/vp_banner"
+         android:layout_width="match_parent"
+         android:layout_height="200dp">
+ </androidx.viewpager.widget.ViewPager>
+    <LinearLayout
+            android:id="@+id/dots_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+    </LinearLayout>
 
+    <TextView
+            android:textStyle="bold"
+            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:text="Categorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+<TextView
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:textSize="20sp"
+        android:text="Mais Vendidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
