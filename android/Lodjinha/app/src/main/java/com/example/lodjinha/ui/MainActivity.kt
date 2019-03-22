@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(wld_toolbar)
 
+
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, wld_toolbar,
             R.string.navigation_drawer_open,
@@ -78,17 +79,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 recycler_view_cat.adapter = categoryAdapter
                 categoryAdapter.add(it)
             }
-
+            tv_name_menu.setTypeface(fontPacifico)
         })
-
-
         lodjinhaViewModel.loadProducts()
         lodjinhaViewModel.getProducts().observe(this, androidx.lifecycle.Observer {data ->
             data?.let {
-                tv_name_menu.setTypeface(fontPacifico)
                 recycler_view.adapter = productsAdapter
                 if (it.size < 20) {
-
                     productsAdapter.add(it)
                 }
                 else{
