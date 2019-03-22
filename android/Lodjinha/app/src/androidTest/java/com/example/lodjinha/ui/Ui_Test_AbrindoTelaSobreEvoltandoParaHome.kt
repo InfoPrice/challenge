@@ -16,30 +16,46 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class Ui_Test_AbrindoInfoDoProdutoEVoltandoParaHome {
+class Ui_Test_AbrindoTelaSobreEvoltandoParaHome {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun ui_Test_AbrindoInfoDoProdutoEVoltandoParaHome() {
-        Thread.sleep(10000)
-        val cardView = onView(
+    fun ui_Test_AbrindoTelaSobreEvoltandoParaHome() {
+        val appCompatImageButton = onView(
+            allOf(
+                withContentDescription("Open navigation drawer"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.wld_toolbar),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton.perform(click())
+
+        val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
                     allOf(
-                        withId(R.id.recycler_view),
+                        withId(R.id.design_navigation_view),
                         childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
-                            5
+                            withId(R.id.nav_view),
+                            0
                         )
                     ),
                     1
@@ -47,45 +63,45 @@ class Ui_Test_AbrindoInfoDoProdutoEVoltandoParaHome {
                 isDisplayed()
             )
         )
-        cardView.perform(click())
+        navigationMenuItemView.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(7000)
+        Thread.sleep(700)
 
         val textView = onView(
             allOf(
-                withId(R.id.tv_detail_product_name), withText("Forza Horizon 3 com uma descrição grandona"),
+                withId(R.id.tv_aboutview_devname), withText("Lucas de Lima Martins"),
                 childAtPosition(
                     childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.RelativeLayout::class.java),
+                        withId(android.R.id.content),
                         0
                     ),
-                    0
+                    3
                 ),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Forza Horizon 3 com uma descrição grandona")))
+        textView.check(matches(withText("Lucas de Lima Martins")))
 
-        val appCompatImageButton = onView(
+        val appCompatImageButton2 = onView(
             allOf(
                 withContentDescription("Navegar para cima"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.toolbar_collapse),
+                        withId(R.id.about_toolbar),
                         childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.CollapsingToolbarLayout")),
-                            1
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            0
                         )
                     ),
-                    0
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatImageButton.perform(click())
+        appCompatImageButton2.perform(click())
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -94,18 +110,18 @@ class Ui_Test_AbrindoInfoDoProdutoEVoltandoParaHome {
 
         val textView2 = onView(
             allOf(
-                withId(R.id.tv_sold), withText("Mais vendidos"),
+                withId(R.id.tv_category), withText("Categorias"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.drawer_layout),
                         0
                     ),
-                    4
+                    2
                 ),
                 isDisplayed()
             )
         )
-        textView2.check(matches(withText("Mais vendidos")))
+        textView2.check(matches(withText("Categorias")))
     }
 
     private fun childAtPosition(

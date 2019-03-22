@@ -40,7 +40,6 @@
                     android:id="@+id/toolbar_collapse"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:popupTheme="@color/colorWarmPurple"
                     app:layout_collapseMode="pin">
 
             </androidx.appcompat.widget.Toolbar>

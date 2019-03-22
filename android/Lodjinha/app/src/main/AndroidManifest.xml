@@ -13,6 +13,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity
+                android:name=".ui.ProductsActivity"
+                android:label="@string/title_activity_products">
+        </activity>
         <activity android:name=".ui.AboutActivity">
         </activity>
         <activity android:name=".ui.AcoutActivity">

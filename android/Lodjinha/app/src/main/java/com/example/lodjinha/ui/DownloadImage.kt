@@ -13,8 +13,8 @@ class DownloadImageWithURLTask(var bmImage: ImageView) : AsyncTask<String, Void,
         var bitmap: Bitmap? = null
         try {
             val `in` = java.net.URL(pathToFile).openStream()
-
             bitmap = BitmapFactory.decodeStream(`in`)
+
         } catch (e: Exception) {
             Log.e("Error", e.message)
             e.printStackTrace()
@@ -22,7 +22,7 @@ class DownloadImageWithURLTask(var bmImage: ImageView) : AsyncTask<String, Void,
         return bitmap
     }
 
-    override fun onPostExecute(result: Bitmap) {
+    override fun onPostExecute(result: Bitmap?) {
         bmImage.setImageBitmap(result)
     }
 }

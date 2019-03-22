@@ -1,27 +1,25 @@
 package com.example.lodjinha
 
-import androidx.lifecycle.MutableLiveData
 import com.example.alodjinha.data.Database
-import com.example.alodjinha.data.classes.Product
 import com.example.alodjinha.data.managers.LodjinhaManager
 import org.junit.Assert
 import org.junit.Test
 
-class ProductsExibitionTest {
+class BannersExibitionTest {
     val database =  Database()
     val lodjinhaManager =  LodjinhaManager(database)
     @Test
     fun databseManager_isCorrect() {
-        val result = lodjinhaManager.getProducts().value
+        val result = lodjinhaManager.getBanners().value
 
         var check = true
         if (result == null) {
             check = false
         }
-            else
+        else
             check = true
         Assert.assertEquals(true, check)
     }
 
-
 }
+

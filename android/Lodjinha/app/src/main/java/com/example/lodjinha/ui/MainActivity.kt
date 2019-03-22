@@ -24,6 +24,7 @@ import com.example.alodjinha.ui.adapters.BannerAdapter
 import com.example.alodjinha.ui.adapters.ProductsAdapter
 import com.example.alodjinha.viewmodels.LodjinhaViewModel
 import com.example.lodjinha.R
+import com.example.lodjinha.ui.adapters.CategoryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.item_product.*
@@ -43,6 +44,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val productsAdapter: ProductsAdapter by lazy {
         ProductsAdapter()
     }
+
+    val categoryAdapter : CategoryAdapter by lazy {
+        CategoryAdapter()
+    }
     var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +66,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fontPacifico = Typeface.createFromAsset(assets, "pacifico.ttf")
         dotsLayout = findViewById(R.id.dots_container)
         recycler_view.layoutManager = LinearLayoutManager(this)
-        viewPager = findViewById(R.id.vp_banner) as ViewPager
-        lodjinhaViewModel.loadProducts()
+        recycler_view_cat.layoutManager = LinearLayoutManager(this
+            , LinearLayoutManager.HORIZONTAL, false)
 
+        viewPager = findViewById(R.id.vp_banner) as ViewPager
+
+        lodjinhaViewModel.loadCategory()
+        lodjinhaViewModel.getCategorys().observe(this, androidx.lifecycle.Observer {data ->
+            data?.let {
+
+                recycler_view_cat.adapter = categoryAdapter
+                categoryAdapter.add(it)
+            }
+
+        })
+
+
+        lodjinhaViewModel.loadProducts()
         lodjinhaViewModel.getProducts().observe(this, androidx.lifecycle.Observer {data ->
             data?.let {
                 tv_name_menu.setTypeface(fontPacifico)
