@@ -21,7 +21,7 @@
         </androidx.viewpager.widget.ViewPager>
         <LinearLayout
                 android:layout_marginTop="150dp"
-                android:layout_marginLeft="160dp"
+                android:gravity="center|bottom"
                 android:id="@+id/dots_container"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"

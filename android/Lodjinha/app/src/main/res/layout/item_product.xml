@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatImageView
             android:background="@drawable/disclosure_indicator"
             android:layout_marginTop="35dp"
-            android:layout_marginLeft="320dp"
+            android:layout_marginLeft="340dp"
             android:layout_width="15dp"
             android:layout_height="25dp"/>
     <TextView
@@ -20,7 +20,7 @@
             android:layout_marginLeft="100dp"
             android:id="@+id/tv_name"
             android:textColor="@color/colorGreyishBrown"
-            android:layout_width="match_parent"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"/>
 
     <TextView
