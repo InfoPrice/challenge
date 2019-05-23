@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Lodjinha</string>
+    <string name="app_name_title">a Lodjinha</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_about">Sobre o aplicativo</string>
+    <string name="developer_name">Fabrício Negrisolo de Godoi</string>
+    <string name="release_date">23 de maio de 2019</string>
+    <string name="best_seller">Mais vendidos</string>
+    <string name="oritinal_price">De:</string>
+    <string name="discount_price">Por</string>
+    <string name="product_name_and_description">%1$s: %2$s</string>
+    <string name="price">%1$s %2$.2f</string>
+</resources>
