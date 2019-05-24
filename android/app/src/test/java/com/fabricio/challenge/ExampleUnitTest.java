@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
 
-    private final CountDownLatch latch = new CountDownLatch(1);
+    private CountDownLatch latch = new CountDownLatch(1);
     private boolean eventBusMessageReceived = false;
 
     @Test
@@ -71,6 +71,8 @@ public class ExampleUnitTest {
         assertNotNull(restService);
 
         // Check getAllBanners
+        latch = new CountDownLatch(4);
+
         Call<RestResponse<Banner>> bannerCall = restService.getAllBanners();
         assertNotNull(bannerCall);
         bannerCall.enqueue(new Callback<RestResponse<Banner>>() {
@@ -87,7 +89,6 @@ public class ExampleUnitTest {
                 throw new AssertionError("REST API: getAllBanners Failed");
             }
         });
-        latch.await(1, TimeUnit.SECONDS);
 
         // Check getAllBanners
         Call<RestResponse<Category>> categoriesCall = restService.getAllCategories();
@@ -106,7 +107,6 @@ public class ExampleUnitTest {
                 throw new AssertionError("REST API: getAllCategories Failed");
             }
         });
-        latch.await(1, TimeUnit.SECONDS);
 
         // Check getAllBanners
         Call<RestResponse<Product>> productCall = restService.getAllProducts();
@@ -125,7 +125,6 @@ public class ExampleUnitTest {
                 throw new AssertionError("REST API: getAllProducts Failed");
             }
         });
-        latch.await(1, TimeUnit.SECONDS);
 
         // Check getAllBanners
         productCall = restService.getBestSellers();
@@ -144,7 +143,9 @@ public class ExampleUnitTest {
                 throw new AssertionError("REST API: getBestSellers Failed");
             }
         });
-        latch.await(1, TimeUnit.SECONDS);
+
+        // Wait all latch return
+        latch.await(5, TimeUnit.SECONDS);
 
     }
 
