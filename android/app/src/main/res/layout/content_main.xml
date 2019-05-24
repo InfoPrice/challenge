@@ -6,72 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".view.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ScrollView
+
+    <com.fabricio.challenge.view.HeightWrappingViewPager
+        android:id="@+id/main_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    </com.fabricio.challenge.view.HeightWrappingViewPager>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/banner_pager_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_alignParentTop="true">
-                </android.support.v4.view.ViewPager>
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/banner_tabs_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/banner_pager_view"
-                    android:layout_centerHorizontal="true"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabGravity="center"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/divider1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@drawable/bar_gradient"
-                />
-
-            <TextView
-                android:id="@+id/best_seller_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/best_seller"
-                style="@style/AppTheme.LargeProductDescription"
-                android:layout_margin="10dp"/>
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/greyish"
-                />
-
-            <com.fabricio.challenge.view.HeightWrappingViewPager
-                android:id="@+id/best_seller_pager_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-
-            </com.fabricio.challenge.view.HeightWrappingViewPager>
-        </LinearLayout>
-    </ScrollView>
+    <!--<include-->
+        <!--layout="@layout/product_list_page"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
 </android.support.constraint.ConstraintLayout>

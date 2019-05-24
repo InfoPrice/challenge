@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewAdapter extends PagerAdapter {
+public class ViewPagerAdapter extends PagerAdapter {
 
     private List<View> views = new ArrayList<>();
     private Context context;
 
-    public ViewAdapter(Context context) {
+    public ViewPagerAdapter(Context context) {
         this.context = context;
     }
 

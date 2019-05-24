@@ -2,10 +2,13 @@ package com.fabricio.challenge.view;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 
 public class HeightWrappingViewPager extends ViewPager {
+
+    private boolean isPagingEnabled = true;
 
     public HeightWrappingViewPager(Context context) {
         super(context);
@@ -35,4 +38,20 @@ public class HeightWrappingViewPager extends ViewPager {
         // super has to be called again so the new specs are treated as exact measurements
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return this.isPagingEnabled && super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        return this.isPagingEnabled && super.onInterceptTouchEvent(event);
+    }
+
+    public void setPagingEnabled(boolean b) {
+        this.isPagingEnabled = b;
+    }
+
 }

@@ -27,20 +27,20 @@
     </style>
 
     <style name="Base.AppTheme.AboutLogo" parent="AppTheme.OnLightBackground">
-        <item name="fontFamily">@font/pacifico</item>
+        <item name="fontPath">fonts/pacifico_regular.ttf</item>
         <item name="android:textSize">64sp</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="AppTheme.AboutLogo" parent="Base.AppTheme.AboutLogo"/>
 
     <style name="Base.AppTheme.MenuLogo" parent="AppTheme">
-        <item name="fontFamily">@font/pacifico</item>
+        <item name="fontPath">fonts/pacifico_regular.ttf</item>
         <item name="android:textSize">24sp</item>
     </style>
     <style name="AppTheme.MenuLogo" parent="Base.AppTheme.MenuLogo"/>
 
     <style name="Base.AppTheme.OriginalPrice" parent="AppTheme">
-        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="fontPath">fonts/roboto_medium.ttf</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/greyish</item>
@@ -48,7 +48,7 @@
     <style name="AppTheme.OriginalPrice" parent="Base.AppTheme.OriginalPrice"/>
 
     <style name="Base.AppTheme.DiscountPrice" parent="AppTheme">
-        <item name="fontFamily">@font/roboto</item>
+        <item name="fontPath">fonts/roboto_medium.ttf</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/tomato</item>
@@ -56,39 +56,39 @@
     <style name="AppTheme.DiscountPrice" parent="Base.AppTheme.DiscountPrice"/>
 
     <style name="Base.AppTheme.LargeProductDescription" parent="AppTheme">
-        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="fontPath">fonts/roboto_medium.ttf</item>
         <item name="android:textSize">18sp</item>
     </style>
     <style name="AppTheme.LargeProductDescription" parent="Base.AppTheme.LargeProductDescription"/>
 
     <style name="Base.AppTheme.SmallProductDescription" parent="AppTheme">
-        <item name="fontFamily">@font/roboto</item>
+        <item name="fontPath">fonts/roboto_regular.ttf</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">17sp</item>
     </style>
     <style name="AppTheme.SmallProductDescription" parent="Base.AppTheme.SmallProductDescription"/>
 
     <style name="Base.AppTheme.MenuItem" parent="AppTheme.OnDarkBackground">
-        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="fontPath">fonts/roboto_medium.ttf</item>
         <item name="android:textSize">14sp</item>
     </style>
     <style name="AppTheme.MenuItem" parent="Base.AppTheme.MenuItem"/>
 
     <style name="Base.AppTheme.CategoryName" parent="AppTheme">
-        <item name="fontFamily">@font/roboto</item>
+        <item name="fontPath">fonts/roboto_regular.ttf</item>
         <item name="android:textSize">13sp</item>
     </style>
     <style name="AppTheme.CategoryName" parent="Base.AppTheme.CategoryName"/>
 
     <style name="Base.AppTheme.DeveloperName" parent="AppTheme.OnLightBackground">
-        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="fontPath">fonts/roboto_medium.ttf</item>
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="AppTheme.DeveloperName" parent="Base.AppTheme.DeveloperName"/>
 
     <style name="Base.AppTheme.DevelopDate" parent="AppTheme.OnLightBackground">
-        <item name="fontFamily">@font/roboto_light</item>
+        <item name="fontPath">fonts/roboto_light.ttf</item>
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">center</item>
     </style>

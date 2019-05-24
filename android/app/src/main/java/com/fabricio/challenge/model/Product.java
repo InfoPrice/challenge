@@ -1,5 +1,8 @@
 package com.fabricio.challenge.model;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -51,6 +54,10 @@ public class Product {
 
     public String getDescription() {
         return description;
+    }
+
+    public Spanned getDescriptionFormatted() {
+        return Html.fromHtml(description);
     }
 
     public void setDescription(String description) {

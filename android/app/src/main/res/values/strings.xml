@@ -15,6 +15,8 @@
     <string name="best_seller">Mais vendidos</string>
     <string name="oritinal_price">De:</string>
     <string name="discount_price">Por</string>
-    <string name="product_name_and_description">%1$s: %2$s</string>
-    <string name="price">%1$s %2$.2f</string>
+    <string name="format_product_name">%1$s: %2$s</string>
+    <string name="format_price">%1$s %2$.2f</string>
+    <string name="product_reserved">Produto reservado com sucesso</string>
+    <string name="product_not_reserved">Não foi possivel reservar o produto</string>
 </resources>

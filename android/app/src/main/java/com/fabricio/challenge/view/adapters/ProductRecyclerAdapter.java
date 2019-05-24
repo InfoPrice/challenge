@@ -1,21 +1,26 @@
 package com.fabricio.challenge.view.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fabricio.challenge.R;
 import com.fabricio.challenge.control.DownloadImageTask;
+import com.fabricio.challenge.control.eventbus.MessageCode;
+import com.fabricio.challenge.control.eventbus.MessageEvent;
 import com.fabricio.challenge.model.Product;
 
-import java.text.DecimalFormat;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +28,12 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
     private static final String TAG = ProductRecyclerAdapter.class.getSimpleName();
 
-    private Context context;
+    private Activity activity;
 
     private List<Product> products = new ArrayList<>();
 
-    public ProductRecyclerAdapter(Context context){
-        this.context = context;
+    public ProductRecyclerAdapter(Activity activity){
+        this.activity = activity;
     }
 
     // Provide a reference to the views for each data item
@@ -54,55 +59,60 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
 
             price.setPaintFlags(price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                indicator.setImageTintList(null);
-//            }
         }
     }
 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
         // create a new view
-        GridLayout layout = (GridLayout) LayoutInflater.from(viewGroup.getContext())
+        final GridLayout layout = (GridLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.product_item, viewGroup, false);
-        Product product = products.get(i);
-//        ((TextView)layout.findViewById(R.id.product_description)).setText(product.getDescription());
         ViewHolder vh = new ViewHolder(layout);
         return vh;
-
-//        View view = views.get(i);
-//        viewGroup.addView(view);
-//        return view;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
 
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         try {
-            ;
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            final Product product = products.get(i);
+
             viewHolder.description.setText(
-                context.getResources().getString(
-                        R.string.product_name_and_description,
+                activity.getResources().getString(
+                        R.string.format_product_name,
                         products.get(i).getName(),
-                        products.get(i).getDescription()
+                        products.get(i).getDescriptionFormatted()
                 )
             );
             new DownloadImageTask(viewHolder.image).execute(products.get(i).getUrlImage());
-            viewHolder.price.setText(context.getResources().getString(
-                    R.string.price,
-                    context.getResources().getString(R.string.oritinal_price),
+            viewHolder.price.setText(activity.getResources().getString(
+                    R.string.format_price,
+                    activity.getResources().getString(R.string.oritinal_price),
                     products.get(i).getPriceOriginal()
             ));
-            viewHolder.offer.setText( context.getResources().getString(
-                    R.string.price,
-                    context.getResources().getString(R.string.discount_price),
+            viewHolder.offer.setText( activity.getResources().getString(
+                    R.string.format_price,
+                    activity.getResources().getString(R.string.discount_price),
                     products.get(i).getPriceDiscount()
             ));
+
+            // Manage click action to open the product description page
+
+            viewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlphaAnimation clickAnim = new AlphaAnimation(0.5F, 1F);
+                    clickAnim.setDuration(500);
+                    viewHolder.layout.startAnimation(clickAnim);
+
+                    // Callback
+                    EventBus.getDefault().post(new MessageEvent(MessageCode.PRODUCT_SELECT_EVENT, product));
+                }
+            });
         } catch (Exception e) {
             Log.e(TAG, "Could not update product info", e);
         }

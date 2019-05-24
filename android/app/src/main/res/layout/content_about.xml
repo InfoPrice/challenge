@@ -4,57 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".view.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ImageView
-        android:id="@+id/about_logo_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/about_app_name"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/logo_sobre" />
+        <ImageView
+            android:id="@+id/about_logo_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/about_app_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/logo_sobre" />
 
-    <TextView
-        android:id="@+id/about_app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name_title"
-        android:textColor="@color/greyishBrown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/AppTheme.AboutLogo" />
+        <TextView
+            android:id="@+id/about_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name_title"
+            android:textColor="@color/greyishBrown"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/AppTheme.AboutLogo" />
 
-    <TextView
-        android:id="@+id/about_dev_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="@string/developer_name"
-        style="@style/AppTheme.DeveloperName"
-        app:layout_constraintBottom_toTopOf="@+id/about_dev_release"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_app_name"
-        app:layout_constraintVertical_chainStyle="packed" />
+        <TextView
+            android:id="@+id/about_dev_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/developer_name"
+            style="@style/AppTheme.DeveloperName"
+            app:layout_constraintBottom_toTopOf="@+id/about_dev_release"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_app_name"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-    <TextView
-        android:id="@+id/about_dev_release"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:text="@string/release_date"
-        style="@style/AppTheme.DevelopDate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about_dev_name" />
+        <TextView
+            android:id="@+id/about_dev_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/release_date"
+            style="@style/AppTheme.DevelopDate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_dev_name" />
 
 </android.support.constraint.ConstraintLayout>
