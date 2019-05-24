@@ -500,6 +500,7 @@ public class MainActivity extends AppCompatActivity
                     productInfoDescription.setText(productSelected.getDescriptionFormatted());
                     mainPagerAdapter.notifyDataSetChanged();
 
+                    // Go to the product info page
                     onEnterProductInfoPage();
                 }
                 break;
