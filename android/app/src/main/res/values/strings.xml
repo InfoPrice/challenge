@@ -19,4 +19,5 @@
     <string name="format_price">%1$s %2$.2f</string>
     <string name="product_reserved">Produto reservado com sucesso</string>
     <string name="product_not_reserved">Não foi possivel reservar o produto</string>
+    <string name="about">sobre</string>
 </resources>

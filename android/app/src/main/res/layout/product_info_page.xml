@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/product_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -8,6 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:background="#00FFFFFF"
+            android:scaleType="fitStart"
+            android:layout_margin="10dp"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
 
         <ImageView
             android:id="@+id/product_image"

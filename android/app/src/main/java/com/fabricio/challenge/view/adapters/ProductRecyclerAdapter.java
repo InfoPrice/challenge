@@ -88,7 +88,11 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
                         products.get(i).getDescriptionFormatted()
                 )
             );
-            new DownloadImageTask(viewHolder.image).execute(products.get(i).getUrlImage());
+            if (product.getImage() == null) {
+                new DownloadImageTask(product.getImage(), viewHolder.image).execute(products.get(i).getUrlImage());
+            } else {
+                viewHolder.image.setImageBitmap(product.getImage());
+            }
             viewHolder.price.setText(activity.getResources().getString(
                     R.string.format_price,
                     activity.getResources().getString(R.string.oritinal_price),

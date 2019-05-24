@@ -1,5 +1,6 @@
 package com.fabricio.challenge.model;
 
+import android.graphics.Bitmap;
 import android.text.Html;
 import android.text.Spanned;
 
@@ -35,6 +36,8 @@ public class Product {
     @Expose
     @SerializedName("urlImagem")
     private String urlImage;
+
+    private Bitmap image;
 
     public Integer getId() {
         return id;
@@ -94,5 +97,13 @@ public class Product {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 }

@@ -12,9 +12,10 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     private static final String TAG = DownloadImageTask.class.getSimpleName();
 
-    ImageView imageView;
+    private Bitmap image;
+    private ImageView imageView;
 
-    public DownloadImageTask(ImageView imageView) {
+    public DownloadImageTask(Bitmap image, ImageView imageView) {
         this.imageView = imageView;
     }
 
@@ -36,5 +37,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap result) {
         imageView.setImageBitmap(result);
+        image = result;
     }
 }

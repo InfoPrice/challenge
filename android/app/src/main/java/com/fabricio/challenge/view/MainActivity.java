@@ -3,8 +3,11 @@ package com.fabricio.challenge.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -22,7 +25,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,9 +46,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import io.github.inflationx.calligraphy3.CalligraphyConfig;
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
-import io.github.inflationx.viewpump.ViewPump;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
@@ -79,9 +79,16 @@ public class MainActivity extends AppCompatActivity
     private Product selectedProduct = null;
     private boolean isProcessingButtonClick = false;
 
+    // Number of retires when fetching data from the REST api
+    private static final int MAX_REST_RETRIES = 5;
+    private int fetchBannersRetries = 0;
+    private int fetchProductsRetries = 0;
+
     /**
      * View components
      */
+    private TextView toolbalText;               // Text displayed on the toolbar
+
     private HeightWrappingViewPager mainPager;  // Has two pages product list and info
     private ViewPagerAdapter mainPagerAdapter;  // Adapter controller for the mainPager
     private View productListView;               // Store the list of products to be show
@@ -94,6 +101,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager bestSellerPager;          // Show the list os most sold products
     private ViewPagerAdapter bestSellerAdapter; // Adapter to the product list
 
+    private ImageView productInfoBackButton;    // Button to press to return to the main page
     private ImageView productInfoImage;         // Image of the product in the info page
     private TextView productInfoNameAndDesc;    // Name and description of the product in the info page
     private TextView productInfoPriceOrginal;   // Product original price
@@ -120,6 +128,8 @@ public class MainActivity extends AppCompatActivity
         // Create the main pages of the activity (product list and product info)
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbalText = findViewById(R.id.toolbar_text);
 
         mainPager = findViewById(R.id.main_pager);
         mainPager.setPagingEnabled(false);
@@ -135,6 +145,7 @@ public class MainActivity extends AppCompatActivity
         bestSellerPager = productListView.findViewById(R.id.best_seller_pager_view);
 
         // Info view
+        productInfoBackButton = productInfoView.findViewById(R.id.back_button);
         productInfoImage = productInfoView.findViewById(R.id.product_image);
         productInfoNameAndDesc = productInfoView.findViewById(R.id.product_name_description);
         productInfoPriceOrginal = productInfoView.findViewById(R.id.product_original_price);
@@ -144,7 +155,6 @@ public class MainActivity extends AppCompatActivity
         productInfoDescription = productInfoView.findViewById(R.id.product_full_description);
 
         // Populate adapters and objects necessary
-        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         navigationView.setItemIconTintList(null);
@@ -163,6 +173,13 @@ public class MainActivity extends AppCompatActivity
 
         bestSellerAdapter = new ViewPagerAdapter(bestSellerPager.getContext());
         bestSellerPager.setAdapter(bestSellerAdapter);
+
+        productInfoBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEnterHomePage();
+            }
+        });
 
         floatButton = findViewById(R.id.fab);
         floatButton.setOnClickListener(new View.OnClickListener() {
@@ -197,9 +214,6 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
                 }
-
-//                Snackbar.make(view, R.string.product_reserved, Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
     }
@@ -226,33 +240,14 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (mainPager.getCurrentItem() == PRODUCT_INFO_PAGE) {
-            floatButton.hide();
-            mainPager.setCurrentItem(PRODUCT_LIST_PAGE);
+            onEnterHomePage();
         } else if(findViewById(R.id.about_page).getVisibility() == View.VISIBLE) {
-            findViewById(R.id.about_page).setVisibility(View.GONE);
-            findViewById(R.id.home_page).setVisibility(View.VISIBLE);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            onEnterHomePage();
         } else {
             super.onBackPressed();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -261,13 +256,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            findViewById(R.id.about_page).setVisibility(View.GONE);
-            findViewById(R.id.home_page).setVisibility(View.VISIBLE);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            onEnterHomePage();
         } else if (id == R.id.nav_about) {
-            findViewById(R.id.home_page).setVisibility(View.GONE);
-            findViewById(R.id.about_page).setVisibility(View.VISIBLE);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            onEnterAboutPage();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -275,6 +266,42 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Handle action when entering to the Home Page
+     */
+    private void onEnterHomePage() {
+        findViewById(R.id.about_page).setVisibility(View.GONE);
+        findViewById(R.id.home_page).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_logo).setVisibility(View.VISIBLE);
+        toolbalText.setText(getResources().getString(R.string.app_name_title));
+        floatButton.hide();
+        mainPager.setCurrentItem(PRODUCT_LIST_PAGE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        toolbalText.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/pacifico_regular.ttf"));
+    }
+
+    /**
+     * Handle action when entering to the About Page
+     */
+    private void onEnterAboutPage() {
+        findViewById(R.id.home_page).setVisibility(View.GONE);
+        findViewById(R.id.about_page).setVisibility(View.VISIBLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+        findViewById(R.id.toolbar_logo).setVisibility(View.GONE);
+        toolbalText.setText(getResources().getString(R.string.about));
+        toolbalText.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/roboto_regular.ttf"));
+    }
+
+    /**
+     * Handle action when entering to the Product Info Page
+     */
+    private void onEnterProductInfoPage() {
+        findViewById(R.id.toolbar).setVisibility(View.GONE);
+        mainPager.setCurrentItem(PRODUCT_INFO_PAGE);
+        floatButton.show();
+    }
 
     /**
      * Load all banner images, getting it from the REST API and adding in a pager view at the top
@@ -282,6 +309,11 @@ public class MainActivity extends AppCompatActivity
      * Note: There is no limit in the specifications of how much banners will be shown at most
      */
     private void loadBanners(){
+        if(fetchBannersRetries++ >= MAX_REST_RETRIES){
+            fetchBannersRetries = 0;
+            return;
+        }
+
         restService.getAllBanners().enqueue(new Callback<RestResponse<Banner>>() {
             @Override
             public void onResponse(Call<RestResponse<Banner>> call, Response<RestResponse<Banner>> response) {
@@ -295,10 +327,23 @@ public class MainActivity extends AppCompatActivity
                         bannerPager.setAdapter(bannerAdapter);
 
                         // Add new banners to the view, downloading the images in the assync task
-                        for(Banner banner : bannerList){
+                        for(final Banner banner : bannerList){
                             View view = LayoutInflater.from(bannerPager.getContext()).inflate(R.layout.banner_item, null);
                             ImageView imageView = view.findViewById(R.id.image);
-                            new DownloadImageTask(imageView).execute(banner.getUrlImage());
+                            if(URLUtil.isValidUrl(banner.getLinkUrl())) {
+                                imageView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(banner.getLinkUrl()));
+                                        startActivity(browserIntent);
+                                    }
+                                });
+                            }
+                            if(banner.getImage() == null) {
+                                new DownloadImageTask(banner.getImage(), imageView).execute(banner.getUrlImage());
+                            } else {
+                                imageView.setImageBitmap(banner.getImage());
+                            }
                             bannerAdapter.addView(imageView);
                         }
                     } catch (Exception e) {
@@ -311,7 +356,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<RestResponse<Banner>> call, Throwable t) {
                 Log.e(TAG, "Could not fetch the banners: ", t);
-                // TODO handle retries
+                loadBanners();
             }
         });
     }
@@ -319,6 +364,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Load all categories, getting it from the REST API
+     * @deprecated not implemented yet
      */
     private void loadCategories(){
         restService.getAllCategories().enqueue(new Callback<RestResponse<Category>>() {
@@ -326,7 +372,7 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<RestResponse<Category>> call, Response<RestResponse<Category>> response) {
                 if(response != null){
                     try {
-
+                        // TODO to be implemented
                     } catch (Exception e) {
                         Log.e(TAG, "Could not parse categories: ", e);
                         // TODO handle retries
@@ -337,7 +383,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<RestResponse<Category>> call, Throwable t) {
                 Log.e(TAG, "Could not fetch categories: ", t);
-                // TODO handle retries
+                loadCategories();
             }
         });
     }
@@ -347,10 +393,15 @@ public class MainActivity extends AppCompatActivity
      * with at most R.integer.product_list_size per page
      */
     private void loadBestSeller(){
+        if(fetchProductsRetries++ >= MAX_REST_RETRIES){
+            fetchProductsRetries = 0;
+            return;
+        }
+
         restService.getBestSellers().enqueue(new Callback<RestResponse<Product>>() {
             @Override
             public void onResponse(Call<RestResponse<Product>> call, Response<RestResponse<Product>> response) {
-                if(response != null){
+                if(response != null && response.isSuccessful()){
                     try {
                         List<Product> products = response.body().getData();
 
@@ -399,7 +450,6 @@ public class MainActivity extends AppCompatActivity
 
                     } catch (Exception e) {
                         Log.e(TAG, "Could not parse best sellers: ", e);
-                        // TODO handle retries
                     }
                 }
             }
@@ -407,7 +457,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<RestResponse<Product>> call, Throwable t) {
                 Log.e(TAG, "Could not fetch best sellers: ", t);
-                // TODO handle retries
+                loadBestSeller();
             }
         });
     }
@@ -424,8 +474,11 @@ public class MainActivity extends AppCompatActivity
             case PRODUCT_SELECT_EVENT:
                 if(event.args.length > 0 && event.args[0] instanceof Product) {
                     selectedProduct = (Product) event.args[0];
-                    // TODO UPDATE INFO VIEW
-                    new DownloadImageTask(productInfoImage).execute(selectedProduct.getUrlImage());
+                    if(selectedProduct.getImage() == null) {
+                        new DownloadImageTask(selectedProduct.getImage(), productInfoImage).execute(selectedProduct.getUrlImage());
+                    } else {
+                        productInfoImage.setImageBitmap(selectedProduct.getImage());
+                    }
                     productInfoNameAndDesc.setText(
                         getResources().getString(R.string.format_product_name,
                                 selectedProduct.getName(),
@@ -443,10 +496,9 @@ public class MainActivity extends AppCompatActivity
                     ));
                     productInfoName.setText(selectedProduct.getName());
                     productInfoDescription.setText(selectedProduct.getDescriptionFormatted());
-                    mainPager.setCurrentItem(PRODUCT_INFO_PAGE);
                     mainPagerAdapter.notifyDataSetChanged();
 
-                    floatButton.show();
+                    onEnterProductInfoPage();
                 }
                 break;
         }
