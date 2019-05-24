@@ -1,7 +1,9 @@
 package com.fabricio.challenge.control.eventbus;
 
 /**
- * Created by AlissonGodoi on 24/08/2017.
+ * Message codes used in this application to update the activities or services.
+ * Each message code may have any number of arguments.
+ * @author Fabricio Godoi
  */
 
 public enum MessageCode {

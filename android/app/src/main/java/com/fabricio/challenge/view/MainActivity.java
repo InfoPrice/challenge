@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
+    // The pages view index in the main page
     private static final int PRODUCT_LIST_PAGE = 0;
     private static final int PRODUCT_INFO_PAGE = 1;
 
@@ -70,13 +71,19 @@ public class MainActivity extends AppCompatActivity
 
     private static final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    // Simple way to call the REST API service
     private static final RestService restService = new Retrofit.Builder()
             .baseUrl(REST_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build().create(RestService.class);
 
-    private Product selectedProduct = null;
+    // Product selected in the list view
+    private Product productSelected = null;
+
+    // When the reserve button is pressed, this flag indicates which
+    // the REST API has done trying to POST the request to prevent
+    // multiple POST requests at the same time.
     private boolean isProcessingButtonClick = false;
 
     // Number of retires when fetching data from the REST api
@@ -98,8 +105,8 @@ public class MainActivity extends AppCompatActivity
     private ViewPagerAdapter bannerAdapter;     // Adapter for the banner pager
     private TabLayout bannerTabs;               // Display how much banners the pager has
 
-    private ViewPager bestSellerPager;          // Show the list os most sold products
-    private ViewPagerAdapter bestSellerAdapter; // Adapter to the product list
+    private HeightWrappingViewPager bestSellerPager; // Show the list os most sold products
+    private ViewPagerAdapter bestSellerAdapter;      // Adapter to the product list
 
     private ImageView productInfoBackButton;    // Button to press to return to the main page
     private ImageView productInfoImage;         // Image of the product in the info page
@@ -185,9 +192,9 @@ public class MainActivity extends AppCompatActivity
         floatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selectedProduct != null && !isProcessingButtonClick) {
+                if(productSelected != null && !isProcessingButtonClick) {
                     isProcessingButtonClick = true;
-                    restService.markProduct(selectedProduct.getId()).enqueue(new Callback<Void>() {
+                    restService.markProduct(productSelected.getId()).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call call, Response response) {
                             if (response.isSuccessful()) {
@@ -364,7 +371,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Load all categories, getting it from the REST API
-     * @deprecated not implemented yet
+     * @deprecated not implemented yet, not requested in the challenge
      */
     private void loadCategories(){
         restService.getAllCategories().enqueue(new Callback<RestResponse<Category>>() {
@@ -410,7 +417,6 @@ public class MainActivity extends AppCompatActivity
                         bestSellerAdapter = new ViewPagerAdapter(bestSellerPager.getContext());
                         bestSellerPager.setAdapter(bestSellerAdapter);
 
-
                         // Create recycler
                         RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(bestSellerPager.getContext()).inflate(R.layout.best_seller_list, null);
                         bestSellerAdapter.addView(recyclerView);
@@ -420,7 +426,6 @@ public class MainActivity extends AppCompatActivity
 
                         ProductRecyclerAdapter prodAdapter = new ProductRecyclerAdapter(ACTIVITY);
                         recyclerView.setAdapter(prodAdapter);
-
 
                         /*
                          * Loop through all products fetched from the server.
@@ -444,9 +449,6 @@ public class MainActivity extends AppCompatActivity
                                 count = 0;
                             }
                         }
-
-                        // TODO evaluate if this is necessary
-                        bestSellerPager.invalidate();
 
                     } catch (Exception e) {
                         Log.e(TAG, "Could not parse best sellers: ", e);
@@ -473,29 +475,29 @@ public class MainActivity extends AppCompatActivity
         switch (event.what){
             case PRODUCT_SELECT_EVENT:
                 if(event.args.length > 0 && event.args[0] instanceof Product) {
-                    selectedProduct = (Product) event.args[0];
-                    if(selectedProduct.getImage() == null) {
-                        new DownloadImageTask(selectedProduct.getImage(), productInfoImage).execute(selectedProduct.getUrlImage());
+                    productSelected = (Product) event.args[0];
+                    if(productSelected.getImage() == null) {
+                        new DownloadImageTask(productSelected.getImage(), productInfoImage).execute(productSelected.getUrlImage());
                     } else {
-                        productInfoImage.setImageBitmap(selectedProduct.getImage());
+                        productInfoImage.setImageBitmap(productSelected.getImage());
                     }
                     productInfoNameAndDesc.setText(
                         getResources().getString(R.string.format_product_name,
-                                selectedProduct.getName(),
-                                selectedProduct.getDescriptionFormatted())
+                                productSelected.getName(),
+                                productSelected.getDescriptionFormatted())
                     );
                     productInfoPriceOrginal.setText(getResources().getString(
                             R.string.format_price,
                             getResources().getString(R.string.oritinal_price),
-                            selectedProduct.getPriceOriginal()
+                            productSelected.getPriceOriginal()
                     ));
                     productInfoPriceDiscount.setText(getResources().getString(
                             R.string.format_price,
                             getResources().getString(R.string.discount_price),
-                            selectedProduct.getPriceDiscount()
+                            productSelected.getPriceDiscount()
                     ));
-                    productInfoName.setText(selectedProduct.getName());
-                    productInfoDescription.setText(selectedProduct.getDescriptionFormatted());
+                    productInfoName.setText(productSelected.getName());
+                    productInfoDescription.setText(productSelected.getDescriptionFormatted());
                     mainPagerAdapter.notifyDataSetChanged();
 
                     onEnterProductInfoPage();

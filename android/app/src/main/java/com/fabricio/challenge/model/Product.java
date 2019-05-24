@@ -7,6 +7,10 @@ import android.text.Spanned;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Model of the Product information fetch from the REST API
+ * @author Fabricio Godoi
+ */
 public class Product {
 
     @Expose

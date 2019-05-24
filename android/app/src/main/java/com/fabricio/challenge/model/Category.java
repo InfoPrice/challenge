@@ -3,6 +3,10 @@ package com.fabricio.challenge.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Model of the Category information fetch from the REST API
+ * @author Fabricio Godoi
+ */
 public class Category {
 
     @Expose

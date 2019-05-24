@@ -1,8 +1,9 @@
 package com.fabricio.challenge.control.eventbus;
 
 /**
- * Created by Alisson Godoi on 17/10/2017.
- * Updated by Fabricio Godoi on 04/03/2019.
+ * Message event controller. Each message must have a MessageCode and any number of arguments needed.
+ * Each argument must be well defined and parsed properly in each callback.
+ * @author Fabricio Godoi
  */
 
 public class MessageEvent {

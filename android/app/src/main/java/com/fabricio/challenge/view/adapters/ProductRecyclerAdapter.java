@@ -129,14 +129,32 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         return products.size();
     }
 
-//    public void addProduct(View view){
-//        views.add(view);
-//        notifyDataSetChanged();
-//    }
-
-    public void addProduct(Product product){
+    /**
+     * Add a new product in the list
+     * @param product
+     */
+    public void addProduct(Product product) {
         products.add(product);
         notifyItemInserted(products.size()-1);
-//        notifyDataSetChanged();
     }
+
+    /**
+     * Remove a product from the list if it exists
+     * @param product
+     */
+    public void removeProduct(Product product) {
+        if(products.contains(product)) {
+            notifyItemRemoved(products.indexOf(product));
+            products.remove(product);
+        }
+    }
+
+    /**
+     * Remove all products from the list
+     */
+    public void removeAll() {
+        products.clear();
+        notifyDataSetChanged();
+    }
+
 }

@@ -8,16 +8,19 @@ import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 
+/**
+ * @author Fabricio Godoi
+ */
 public class MainApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        // Define default font for apk
+        // Install and define default font for the application with Calligraphy3
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("font/roboto_regular2.ttf")
+                                .setDefaultFontPath("fonts/roboto_regular.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());

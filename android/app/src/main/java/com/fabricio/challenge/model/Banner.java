@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Model of the Banner information fetch from the REST API
+ * @author Fabricio Godoi
+ */
 public class Banner {
 
     @Expose

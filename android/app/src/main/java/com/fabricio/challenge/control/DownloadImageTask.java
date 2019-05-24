@@ -8,6 +8,11 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+/**
+ * Image download handler. This class should be called in the activity or fragments.
+ * It download any image from given URL and store it in the Bitmap and in ImageView objects.
+ * @author Fabricio Godoi
+ */
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     private static final String TAG = DownloadImageTask.class.getSimpleName();
@@ -21,17 +26,15 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
+        String url = urls[0];
+        Bitmap image = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
+            InputStream in = new java.net.URL(url).openStream();
+            image = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
-            Log.e(TAG, "Error: ", e);
+            Log.e(TAG, "Could not download the image"+url+": ", e);
         }
-
-        return mIcon11;
-//        return new BitmapDrawable(mIcon11);
+        return image;
     }
 
     @Override
