@@ -8,9 +8,9 @@ podemos citar:
 - HTML5
 - Bootstrap
 - CSS
+- Cube.js
 - JavaScript
-- Knockout
-- AngularJS
+- React
 - Maven
 
 ## Requisitos
