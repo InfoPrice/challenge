@@ -1,0 +1,41 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Requested theme -->
+
+    <style name="Base.V21.AppTheme.Aboutlogo" parent="Base.AppTheme.AboutLogo">
+        <item name="android:letterSpacing">-0.0936</item> <!-- -1.5sp * 0.0624 = -0.0936em -->
+    </style>
+    <style name="AppTheme.AboutLogo" parent="Base.V21.AppTheme.Aboutlogo"/>
+
+    <style name="Base.V21.AppTheme.MenuLogo" parent="Base.AppTheme.MenuLogo">
+        <item name="android:letterSpacing">-0.03744</item> <!-- -0.6sp * 0.0624 = -0.03744em -->
+    </style>
+    <style name="AppTheme.MenuLogo" parent="Base.V21.AppTheme.MenuLogo"/>
+
+    <style name="Base.V21.AppTheme.SmallProductDescription" parent="Base.AppTheme.SmallProductDescription">
+        <item name="android:letterSpacing">-0.02496</item> <!-- -0.4sp * 0.0624 = -0.02496em -->
+    </style>
+    <style name="AppTheme.SmallProductDescription" parent="Base.V21.AppTheme.SmallProductDescription"/>
+
+    <style name="Base.V21.AppTheme.MenuItem" parent="Base.AppTheme.MenuItem">
+        <item name="android:letterSpacing">-0.01872</item> <!-- -0.3sp * 0.0624 = -0.01872em -->
+    </style>
+    <style name="AppTheme.MenuItem" parent="Base.V21.AppTheme.MenuItem"/>
+
+    <style name="Base.V21.AppTheme.DeveloperName" parent="Base.AppTheme.DeveloperName">
+        <item name="android:letterSpacing">-0.01872</item> <!-- -0.3sp * 0.0624 = -0.01872em -->
+    </style>
+    <style name="AppTheme.DeveloperName" parent="Base.V21.AppTheme.DeveloperName"/>
+
+    <style name="Base.V21.AppTheme.DevelopDate" parent="Base.AppTheme.DevelopDate">
+        <item name="android:letterSpacing">-0.01872</item> <!-- -0.3sp * 0.0624 = -0.01872em -->
+    </style>
+    <style name="AppTheme.DevelopDate" parent="Base.V21.AppTheme.DevelopDate"/>
+
+</resources>
