@@ -20,7 +20,7 @@ public class Cidade {
 	@Column(name="id", columnDefinition = "serial")
 	private Integer id;
 	
-	@Column(name="nome_cidade")
+	@Column(name="nome")
 	private String  nomeCidade;
 	
 	@Column(name = "estado")

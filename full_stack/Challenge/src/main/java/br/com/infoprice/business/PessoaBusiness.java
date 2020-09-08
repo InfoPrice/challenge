@@ -21,7 +21,7 @@ public class PessoaBusiness {
 
 			return pessoaDao.salva(pessoa);
 		} catch (RuntimeException ex) {
-			throw new Exception("Erro ao cadastrar nova pessoa, " + ex.getMessage());
+			throw new RuntimeException("Erro ao cadastrar nova pessoa, " + ex.getMessage());
 		} catch (Exception ex) {
 			throw new Exception("Erro ao cadastrar nova pessoa.", ex);
 		}

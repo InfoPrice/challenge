@@ -9,9 +9,9 @@
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
          <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-         <property name="hibernate.connection.username" value="postgres"/>
-         <property name="hibernate.connection.password" value="admin"/>
-         <property name="hibernate.connection.url" value="jdbc:postgresql://localhost/infoprice"/>
+         <property name="hibernate.connection.username" value="tpippljjndoarn"/>
+         <property name="hibernate.connection.password" value="122b72b5f0235497db8bd72398bc0ae698bd8d20891d36e8a1ee0a033a1fe003"/>
+         <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-211-169-227.compute-1.amazonaws.com/d1il5sgagqgjkn"/>
          <property name="hibernate.max_fetch_depth" value="3"/>
          <property name="hibernate.format_sql" value="true" />
          <property name="hibernate.use_sql_comments" value="false" />
