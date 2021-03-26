@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.AboutActivity"
+        android:orientation="vertical">
+    <include layout="@layout/app_bar_about">
+    </include>
+    
+    <ImageView
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/logo_sobre"/>
+    <TextView
+            android:id="@+id/tv_aboutview"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:text="a Lodjinha"
+            android:textSize="64sp"
+            android:textColor="@color/colorGreyishBrown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_aboutview_devname"
+            android:layout_marginTop="60dp"
+            android:textAlignment="center"
+            android:text="Lucas de Lima Martins"
+            android:textSize="14sp"
+            android:textColor="@color/colorGreyishBrown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_aboutview_date"
+
+            android:textAlignment="center"
+            android:text="21 de março de 2019"
+            android:textSize="12sp"
+            android:textColor="@color/colorGreyishBrown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
