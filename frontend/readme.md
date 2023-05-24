@@ -1,7 +1,7 @@
 Test frontend - InfoPrice
 ---------------------------------------------
 
-Este teste é focado em design de código e conhecimentos com Javascript e ReactJS. 
+Este teste é focado em design de código e conhecimentos com HTML, CSS, Javascript e ReactJS. 
 O objetivo é avaliar sua experiência em escrever código de fácil manutenção, orientado a 
 padrões e reutilizavel. 
 
