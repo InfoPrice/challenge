@@ -5,14 +5,7 @@ Este teste é focado em design de código e conhecimentos com HTML, CSS, Javascr
 O objetivo é avaliar sua experiência em escrever código de fácil manutenção, orientado a 
 padrões e reutilizavel. 
 
-__Problema 1__
-
-Dada a api https://api-pacientes.herokuapp.com/pacientes, crie uma tela onde lista-se 
-os pacientes ordenados de forma decrescente por peso.
-
-Coloque o código em um local separado do problema 2.
-
-__Problema 2__
+__Desafio__
 
 __Apresentação do projeto__
 
@@ -24,9 +17,5 @@ A estrutura html montada no arquivo index é apenas uma referência para o layou
 desde que contenha todos os dados solicitados. 
 
 __Avaliação__
+* Não crie um PR nem faça fork do projeto. Criei um repositório no seu usuário e nos envie no e-mail informado.
 
-Para nos enviar seu código, você pode:
-
-* Fazer um fork desse repositório e nos mandar uma pull-request.
-* Dar acesso ao seu repositório no Github, para @InfoPrice
-* Enviar um zip do projeto para nosso e-mail challenge@infoprice.co
