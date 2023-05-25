@@ -10,8 +10,10 @@ __Desafio__
 __Apresentação do projeto__
 
 O arquivo index.html contém o esqueleto uma aplicação para pesquisa de usuários 
-do Github. Utilizando seu username como filtro, liste o perfil do usuário com detalhes como
-followers, followins e uma lista dos repositórios.
+do Github. Utilizando o username para busca, mostre o perfil do usuário com detalhes como
+nome, empresa, seguidores e quantidade de repositórios públicos.
+
+Para buscar o usuário, utilize a API https://api.github.com/users/{username}
 
 A estrutura html montada no arquivo index é apenas uma referência para o layout, podendo ser alterada,
 desde que contenha todos os dados solicitados. 
